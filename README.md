@@ -139,7 +139,7 @@ This repository dogfoods it: CI scans its own `README.md`, `SKILL.md`, and `refe
 - Phone home, fetch models, or need keys -- stdlib only, offline, deterministic: same bytes, same band, same exit code.
 - Fire on a single dash, triplet, or bold line -- every density rule has a count floor, and the floors are published above.
 
-## One path, many gates - the family
+## One path, many gates — the family
 
 Deterministic gates - one Python script each, stdlib, same exit contract:
 
@@ -156,9 +156,10 @@ Deterministic gates - one Python script each, stdlib, same exit contract:
 | [testgate](https://github.com/F0Rextasy/testgate) | the tests that ran are the tests that exist - gaps, dupes, skips |
 | [bandaid](https://github.com/F0Rextasy/bandaid) | the diff doesn't hide a silent failure - swallowed errors, dead guards |
 | [wincompat](https://github.com/F0Rextasy/wincompat) | every path in the tree survives a Windows checkout |
-| [compressproof](https://github.com/F0Rextasy/compressproof) | the context shrank without losing an answer — reversible compression, byte proof, answer-equivalence oracle |
-| [uigate](https://github.com/F0Rextasy/uigate) | the UI stops looking like the same AI slop — measurable design-slop lint, WCAG + template tells |
-| **aitell** (this repo) | the prose stops reading as AI — deterministic AI-tell detection with a published confusion matrix |
+| [compressproof](https://github.com/F0Rextasy/compressproof) | the context shrank without losing an answer - reversible compression, byte proof, answer-equivalence oracle |
+| [uigate](https://github.com/F0Rextasy/uigate) | the UI stops looking like the same AI slop - measurable design-slop lint, WCAG + template tells |
+| [aitell](https://github.com/F0Rextasy/aitell) | the prose stops reading as AI - deterministic AI-tell detection with a published confusion matrix |
+| [route-drift](https://github.com/F0Rextasy/route-drift) | OpenAPI spec vs code routes drift gate |
 
 ## License
 
