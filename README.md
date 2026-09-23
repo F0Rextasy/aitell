@@ -8,7 +8,7 @@
 [![skills](https://skills.sh/b/F0Rextasy/aitell?style=flat-square)](https://skills.sh/F0Rextasy/aitell)
 [![license](https://img.shields.io/badge/license-MIT-3fb950?style=flat-square)](LICENSE)
 
-![aitell flagging an AI-style sample](assets/demo.svg)
+![aitell flagging an AI-style sample](assets/demo.png)
 
 ## Why this exists
 
