@@ -139,6 +139,17 @@ This repository dogfoods it: CI scans its own `README.md`, `SKILL.md`, and `refe
 - Phone home, fetch models, or need keys -- stdlib only, offline, deterministic: same bytes, same band, same exit code.
 - Fire on a single dash, triplet, or bold line -- every density rule has a count floor, and the floors are published above.
 
+## How it compares
+
+*Caption: AI-prose detectors -- only ours and unslop-check give checkable numbers without sending text anywhere.*
+
+|tool|install|offline?|quality/precision metric|license/key-caveat|
+|---|---|---|---|---|
+|**aitell** (ours)|`npx skills add F0Rextasy/aitell`|Yes|Published confusion matrix; deterministic score|Deterministic -- same input, same verdict, every run|
+|**ai-detect**|`git clone github.com/houtini-ai/ai-detect && pip install .` (not on PyPI)|Yes, after 1.7 GB one-time model download (126 MB light)|Model RAID #1 backing + paired 92.6% vs 0.03%; no own P/R table|MIT (beta); pulls torch/transformers|
+|**unslop-check**|`npm i -g unslop-check` (Node >=18)|Yes (pure stylometry, no model)|7 signals 0-1 + composite; calibration FPR floor 0.4% -- distilled from unslop.run, not self-measured|MIT; reference data, not tool-measured precision/recall|
+|**SaaS (GPTZero)**|Web/API -- no offline CLI|No|Vendor-claimed accuracy only, unverifiable locally|Proprietary/paid; text leaves the machine (NDA risk)|
+
 ## One path, many gates — the family
 
 Deterministic gates - one Python script each, stdlib, same exit contract:
