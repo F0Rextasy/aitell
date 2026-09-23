@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+"""aitell -- deterministic AI-tell prose detector.
+
+Scans Markdown/plain text with fixed regex/counting rules (no model, no
+network, no telemetry) and reports per-rule hits plus a weighted total
+mapped to a verdict band:
+
+    clean -> likely-human -> likely-ai -> ai-tells
+
+Band names describe STYLE, not authorship: "ai-tells" means the prose
+contains patterns common in LLM output, NOT proof a machine wrote it.
+Exit 0 = below --fail-over, 1 = at/above it (CI gate), 2 = usage error.
+"""
+
+import argparse
+import json
+import math
+import os
+import re
+import sys
+
+# rule id -> (weight, threshold description)
+RULES = [
+    ("delve", 3, ">=1 occurrence"),
+    ("conclusion", 2, ">=1 occurrence"),
+    ("moreover-opener", 2, ">=1 paragraph opener"),
+    ("emdash-density", 2, ">1.0 per 100 words and >=2 dashes"),
+    ("triplet", 2, ">=2 ', X, and Y' triplets"),
+    ("notjust", 3, ">=1 occurrence"),
+    ("divein", 3, ">=1 occurrence"),
+    ("boldheaders", 1, ">=2 fully-bold lines"),
+    ("verb-cluster", 2, ">=2 occurrences"),
+    ("emoji-bullets", 2, ">=30% of bullets carry emoji"),
+    ("sentence-uniformity", 2, ">=5 sentences and stdev < 6.0 words"),
+]
+
+BANDS = ("clean", "likely-human", "likely-ai", "ai-tells")
+BAND_FLOOR = {"clean": 0, "likely-human": 2, "likely-ai": 5, "ai-tells": 8}
+
+DELVE_RE = re.compile(r"\bdelv(?:e|es|ed|ing)\b", re.IGNORECASE)
+CONCLUSION_RE = re.compile(r"\bin conclusion\b", re.IGNORECASE)
+PARA_OPENER_RE = re.compile(r"^(?:[#>\s\-*+\d.)]*)(moreover|furthermore)\b",
+                            re.IGNORECASE)
+EMDASH_RE = re.compile(u"\u2014|\u2013")
+TRIPLET_RE = re.compile(r",\s*[A-Za-z][\w\-]*,\s+and\s+[A-Za-z][\w\-]*")
+NOTJUST_RE = re.compile(
+    r"\bnot just\b.{0,80}?\bit(?:'s|'|’s| is)\b|\bnot only\b.{0,80}?\bbut\b",
+    re.IGNORECASE | re.DOTALL)
+DIVEIN_RE = re.compile(r"\blet(?:'s| us) dive in\b|\bdive (?:right )?in\b",
+                       re.IGNORECASE)
+BOLDLINE_RE = re.compile(r"^\s*\*\*.+\*\*\s*$")
+VERB_RE = re.compile(r"\b(unlock(?:s|ed|ing)?|harness(?:ed|ing|es)?|"
+                     r"leverag(?:e|ed|es|ing))\b", re.IGNORECASE)
+BULLET_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+\S")
+SENT_SPLIT_RE = re.compile(r"[.!?]+(?:\s+|$)")
+WORD_RE = re.compile(r"[A-Za-z0-9']+")
+
+
+def _has_emoji(text):
+    for ch in text:
+        code = ord(ch)
+        if (0x1F300 <= code <= 0x1FAFF or 0x2600 <= code <= 0x27BF
+                or 0x2B00 <= code <= 0x2BFF or code >= 0x1F000):
+            return True
+    return False
+
+
+def strip_markup(text):
+    """Remove fenced code blocks and `inline code` spans so quoted
+    samples and rule names never count as prose voice."""
+    out = []
+    in_fence = False
+    for line in text.splitlines():
+        if re.match(r"^\s*(`{3,}|~{3,})", line):
+            in_fence = not in_fence
+            continue
+        if not in_fence:
+            out.append(line)
+    prose = "\n".join(out)
+    prose = re.sub(r"`[^`\n]*`", " ", prose)
+    return prose
+
+
+def analyze(text):
+    """Return (rule_hits, score). rule_hits: {id: (hits, measured)}."""
+    prose = strip_markup(text)
+    words = WORD_RE.findall(prose)
+    nwords = max(len(words), 1)
+    paragraphs = [p for p in re.split(r"\n\s*\n", prose) if p.strip()]
+
+    hits = {}
+
+    n = len(DELVE_RE.findall(prose))
+    hits["delve"] = (1 if n >= 1 else 0, "%d occurrence(s)" % n)
+
+    n = len(CONCLUSION_RE.findall(prose))
+    hits["conclusion"] = (1 if n >= 1 else 0, "%d occurrence(s)" % n)
+
+    n = sum(1 for p in paragraphs
+            if PARA_OPENER_RE.match(p.strip().splitlines()[0]))
+    hits["moreover-opener"] = (1 if n >= 1 else 0,
+                               "%d paragraph(s) open with moreover/furthermore"
+                               % n)
+
+    nem = len(EMDASH_RE.findall(prose))
+    dens = nem * 100.0 / nwords
+    hits["emdash-density"] = (1 if (dens > 1.0 and nem >= 2) else 0,
+                              "%.2f per 100 words (%d in %d words)"
+                              % (dens, nem, len(words)))
+
+    n = len(TRIPLET_RE.findall(prose))
+    hits["triplet"] = (1 if n >= 2 else 0, "%d triplet(s)" % n)
+
+    n = len(NOTJUST_RE.findall(prose))
+    hits["notjust"] = (1 if n >= 1 else 0, "%d occurrence(s)" % n)
+
+    n = len(DIVEIN_RE.findall(prose))
+    hits["divein"] = (1 if n >= 1 else 0, "%d occurrence(s)" % n)
+
+    n = sum(1 for line in prose.splitlines() if BOLDLINE_RE.match(line))
+    hits["boldheaders"] = (1 if n >= 2 else 0, "%d fully-bold line(s)" % n)
+
+    n = len(VERB_RE.findall(prose))
+    hits["verb-cluster"] = (1 if n >= 2 else 0, "%d occurrence(s)" % n)
+
+    bullets = [l for l in prose.splitlines() if BULLET_RE.match(l)]
+    nemoji = sum(1 for l in bullets if _has_emoji(l))
+    frac = (nemoji / len(bullets)) if bullets else 0.0
+    hits["emoji-bullets"] = (
+        1 if (len(bullets) >= 2 and frac >= 0.30) else 0,
+        "%d/%d bullets carry emoji (%.0f%%)" % (nemoji, len(bullets),
+                                               frac * 100))
+
+    sentences = [s for s in SENT_SPLIT_RE.split(prose) if WORD_RE.search(s)]
+    lens = [len(WORD_RE.findall(s)) for s in sentences]
+    if len(lens) >= 5:
+        mean = sum(lens) / len(lens)
+        var = sum((x - mean) ** 2 for x in lens) / len(lens)
+        stdev = math.sqrt(var)
+        fired = 1 if stdev < 6.0 else 0
+        measured = ("stdev %.2f words over %d sentences"
+                    % (stdev, len(lens)))
+    else:
+        fired, measured = 0, "only %d sentence(s), need >=5" % len(lens)
+    hits["sentence-uniformity"] = (fired, measured)
+
+    weights = dict((rid, w) for rid, w, _ in RULES)
+    score = sum(weights[rid] for rid, (f, _) in hits.items() if f)
+    return hits, score
+
+
+def verdict_for(score):
+    band = "clean"
+    for name in BANDS:
+        if score >= BAND_FLOOR[name]:
+            band = name
+    return band
+
+
+def band_at_or_above(band, floor):
+    return BANDS.index(band) >= BANDS.index(floor)
+
+
+BOLD = "\033[1m"
+RED = "\033[31m"
+YELLOW = "\033[33m"
+GREEN = "\033[32m"
+DIM = "\033[2m"
+RESET = "\033[0m"
+
+
+def paint(text, *codes, **kw):
+    if kw.get("color", True):
+        return "".join(codes) + text + RESET
+    return text
+
+
+def collect(paths):
+    files = []
+    for path in paths:
+        if os.path.isdir(path):
+            for root, dirs, names in os.walk(path):
+                dirs[:] = [d for d in dirs
+                           if d not in {".git", "node_modules",
+                                        "__pycache__"}]
+                for name in sorted(names):
+                    if name.lower().endswith((".md", ".markdown", ".mdown",
+                                              ".txt")):
+                        files.append(os.path.join(root, name))
+        elif os.path.isfile(path):
+            files.append(path)
+        else:
+            print("aitell: cannot read %s" % path, file=sys.stderr)
+            sys.exit(2)
+    files = sorted(set(files))
+    if not files:
+        print("aitell: no text files found", file=sys.stderr)
+        sys.exit(2)
+    return files
+
+
+def render_text(results, color):
+    band_color = {"clean": (GREEN, BOLD), "likely-human": (GREEN,),
+                  "likely-ai": (YELLOW, BOLD), "ai-tells": (RED, BOLD)}
+    thresholds = dict((rid, t) for rid, _, t in RULES)
+    for res in results:
+        print(paint("== %s: %s (score %d)" % (
+            res["file"], res["verdict"].upper(), res["score"]),
+            *band_color[res["verdict"]], color=color))
+        for rid, _, thresh in RULES:
+            hit = res["hits"][rid]
+            fired, measured = hit["fired"], hit["measured"]
+            mark = "HIT " if fired else "ok  "
+            print("  %s %-20s %s  [threshold: %s]" % (
+                paint(mark, RED, BOLD, color=color) if fired else mark,
+                rid, measured, thresholds[rid]))
+    n = len(results)
+    flagged = sum(1 for r in results if band_at_or_above(r["verdict"],
+                                                        "ai-tells"))
+    print()
+    print(paint("aitell: %d file(s), %d flagged ai-tells" % (n, flagged),
+                BOLD, color=color))
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(
+        prog="aitell",
+        description="Flag AI-style tells in prose -- deterministic "
+                    "regex/counting rules, no model, no network. "
+                    "Bands describe style, NOT authorship.")
+    parser.add_argument("paths", nargs="+",
+                        help="markdown/text files or directories to scan")
+    parser.add_argument("--fail-over", default="ai-tells",
+                        choices=BANDS,
+                        help="exit 1 when any file reaches this band "
+                             "(default: ai-tells)")
+    parser.add_argument("--format", choices=("text", "json"), default="text")
+    parser.add_argument("--no-color", action="store_true")
+    opts = parser.parse_args(argv)
+
+    try:
+        if hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except (OSError, ValueError):
+        pass
+    files = collect(opts.paths)
+    results = []
+    for path in files:
+        try:
+            with open(path, encoding="utf-8") as handle:
+                text = handle.read()
+        except (OSError, UnicodeDecodeError):
+            print("aitell: cannot read %s" % path, file=sys.stderr)
+            sys.exit(2)
+        hits, score = analyze(text)
+        results.append({
+            "file": path,
+            "verdict": verdict_for(score),
+            "score": score,
+            "hits": dict((rid, {"fired": bool(f), "measured": m})
+                         for rid, (f, m) in hits.items()),
+        })
+    worst = max(BANDS.index(r["verdict"]) for r in results)
+    fail = any(band_at_or_above(r["verdict"], opts.fail_over)
+               for r in results)
+    if opts.format == "json":
+        print(json.dumps({"ok": not fail,
+                          "fail_over": opts.fail_over,
+                          "worst": BANDS[worst],
+                          "files": results}, indent=2))
+    else:
+        render_text(results, not opts.no_color)
+    return 1 if fail else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

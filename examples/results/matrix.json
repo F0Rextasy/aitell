@@ -1,0 +1,823 @@
+{
+  "ok": false,
+  "fail_over": "ai-tells",
+  "worst": "ai-tells",
+  "files": [
+    {
+      "file": "examples/corpus\\ai\\bookshelf-06.md",
+      "verdict": "ai-tells",
+      "score": 24,
+      "hits": {
+        "delve": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": true,
+          "measured": "1 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": true,
+          "measured": "2.04 per 100 words (3 in 147 words)"
+        },
+        "triplet": {
+          "fired": true,
+          "measured": "4 triplet(s)"
+        },
+        "notjust": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "divein": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": true,
+          "measured": "2 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": true,
+          "measured": "3 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": true,
+          "measured": "3/3 bullets carry emoji (100%)"
+        },
+        "sentence-uniformity": {
+          "fired": true,
+          "measured": "stdev 4.67 words over 12 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\ai\\garden-02.md",
+      "verdict": "ai-tells",
+      "score": 24,
+      "hits": {
+        "delve": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": true,
+          "measured": "1 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": true,
+          "measured": "1.97 per 100 words (3 in 152 words)"
+        },
+        "triplet": {
+          "fired": true,
+          "measured": "4 triplet(s)"
+        },
+        "notjust": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "divein": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": true,
+          "measured": "2 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": true,
+          "measured": "3 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": true,
+          "measured": "3/3 bullets carry emoji (100%)"
+        },
+        "sentence-uniformity": {
+          "fired": true,
+          "measured": "stdev 4.75 words over 12 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\ai\\hiking-05.md",
+      "verdict": "ai-tells",
+      "score": 24,
+      "hits": {
+        "delve": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": true,
+          "measured": "1 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": true,
+          "measured": "2.03 per 100 words (3 in 148 words)"
+        },
+        "triplet": {
+          "fired": true,
+          "measured": "4 triplet(s)"
+        },
+        "notjust": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "divein": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": true,
+          "measured": "2 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": true,
+          "measured": "3 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": true,
+          "measured": "3/3 bullets carry emoji (100%)"
+        },
+        "sentence-uniformity": {
+          "fired": true,
+          "measured": "stdev 4.68 words over 12 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\ai\\journal-08.md",
+      "verdict": "ai-tells",
+      "score": 24,
+      "hits": {
+        "delve": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": true,
+          "measured": "1 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": true,
+          "measured": "2.10 per 100 words (3 in 143 words)"
+        },
+        "triplet": {
+          "fired": true,
+          "measured": "4 triplet(s)"
+        },
+        "notjust": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "divein": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": true,
+          "measured": "2 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": true,
+          "measured": "3 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": true,
+          "measured": "3/3 bullets carry emoji (100%)"
+        },
+        "sentence-uniformity": {
+          "fired": true,
+          "measured": "stdev 4.39 words over 12 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\ai\\notes-01.md",
+      "verdict": "ai-tells",
+      "score": 24,
+      "hits": {
+        "delve": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": true,
+          "measured": "1 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": true,
+          "measured": "2.04 per 100 words (3 in 147 words)"
+        },
+        "triplet": {
+          "fired": true,
+          "measured": "4 triplet(s)"
+        },
+        "notjust": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "divein": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": true,
+          "measured": "2 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": true,
+          "measured": "3 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": true,
+          "measured": "3/3 bullets carry emoji (100%)"
+        },
+        "sentence-uniformity": {
+          "fired": true,
+          "measured": "stdev 4.57 words over 12 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\ai\\pantry-03.md",
+      "verdict": "ai-tells",
+      "score": 24,
+      "hits": {
+        "delve": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": true,
+          "measured": "1 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": true,
+          "measured": "1.97 per 100 words (3 in 152 words)"
+        },
+        "triplet": {
+          "fired": true,
+          "measured": "4 triplet(s)"
+        },
+        "notjust": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "divein": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": true,
+          "measured": "2 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": true,
+          "measured": "3 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": true,
+          "measured": "3/3 bullets carry emoji (100%)"
+        },
+        "sentence-uniformity": {
+          "fired": true,
+          "measured": "stdev 5.10 words over 12 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\ai\\photos-07.md",
+      "verdict": "ai-tells",
+      "score": 24,
+      "hits": {
+        "delve": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": true,
+          "measured": "1 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": true,
+          "measured": "2.05 per 100 words (3 in 146 words)"
+        },
+        "triplet": {
+          "fired": true,
+          "measured": "3 triplet(s)"
+        },
+        "notjust": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "divein": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": true,
+          "measured": "2 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": true,
+          "measured": "3 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": true,
+          "measured": "3/3 bullets carry emoji (100%)"
+        },
+        "sentence-uniformity": {
+          "fired": true,
+          "measured": "stdev 4.63 words over 12 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\ai\\workout-04.md",
+      "verdict": "ai-tells",
+      "score": 24,
+      "hits": {
+        "delve": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": true,
+          "measured": "1 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": true,
+          "measured": "2.05 per 100 words (3 in 146 words)"
+        },
+        "triplet": {
+          "fired": true,
+          "measured": "4 triplet(s)"
+        },
+        "notjust": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "divein": {
+          "fired": true,
+          "measured": "1 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": true,
+          "measured": "2 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": true,
+          "measured": "3 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": true,
+          "measured": "3/3 bullets carry emoji (100%)"
+        },
+        "sentence-uniformity": {
+          "fired": true,
+          "measured": "stdev 4.62 words over 12 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\human\\bus-02.md",
+      "verdict": "clean",
+      "score": 0,
+      "hits": {
+        "delve": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": false,
+          "measured": "0 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": false,
+          "measured": "1.11 per 100 words (1 in 90 words)"
+        },
+        "triplet": {
+          "fired": false,
+          "measured": "0 triplet(s)"
+        },
+        "notjust": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "divein": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": false,
+          "measured": "0 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": false,
+          "measured": "0/0 bullets carry emoji (0%)"
+        },
+        "sentence-uniformity": {
+          "fired": false,
+          "measured": "stdev 6.90 words over 6 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\human\\dog-04.md",
+      "verdict": "clean",
+      "score": 0,
+      "hits": {
+        "delve": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": false,
+          "measured": "0 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": false,
+          "measured": "0.98 per 100 words (1 in 102 words)"
+        },
+        "triplet": {
+          "fired": false,
+          "measured": "0 triplet(s)"
+        },
+        "notjust": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "divein": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": false,
+          "measured": "0 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": false,
+          "measured": "0/0 bullets carry emoji (0%)"
+        },
+        "sentence-uniformity": {
+          "fired": false,
+          "measured": "stdev 10.39 words over 8 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\human\\flatpack-08.md",
+      "verdict": "clean",
+      "score": 0,
+      "hits": {
+        "delve": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": false,
+          "measured": "0 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": false,
+          "measured": "1.02 per 100 words (1 in 98 words)"
+        },
+        "triplet": {
+          "fired": false,
+          "measured": "0 triplet(s)"
+        },
+        "notjust": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "divein": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": false,
+          "measured": "0 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": false,
+          "measured": "0/0 bullets carry emoji (0%)"
+        },
+        "sentence-uniformity": {
+          "fired": false,
+          "measured": "stdev 9.00 words over 8 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\human\\letter-07.md",
+      "verdict": "clean",
+      "score": 0,
+      "hits": {
+        "delve": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": false,
+          "measured": "0 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": false,
+          "measured": "1.01 per 100 words (1 in 99 words)"
+        },
+        "triplet": {
+          "fired": false,
+          "measured": "0 triplet(s)"
+        },
+        "notjust": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "divein": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": false,
+          "measured": "0 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": false,
+          "measured": "0/0 bullets carry emoji (0%)"
+        },
+        "sentence-uniformity": {
+          "fired": false,
+          "measured": "stdev 9.63 words over 7 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\human\\market-05.md",
+      "verdict": "clean",
+      "score": 0,
+      "hits": {
+        "delve": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": false,
+          "measured": "0 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": false,
+          "measured": "1.09 per 100 words (1 in 92 words)"
+        },
+        "triplet": {
+          "fired": false,
+          "measured": "0 triplet(s)"
+        },
+        "notjust": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "divein": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": false,
+          "measured": "0 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": false,
+          "measured": "0/0 bullets carry emoji (0%)"
+        },
+        "sentence-uniformity": {
+          "fired": false,
+          "measured": "stdev 7.16 words over 7 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\human\\rain-06.md",
+      "verdict": "clean",
+      "score": 0,
+      "hits": {
+        "delve": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": false,
+          "measured": "0 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": false,
+          "measured": "0.99 per 100 words (1 in 101 words)"
+        },
+        "triplet": {
+          "fired": false,
+          "measured": "0 triplet(s)"
+        },
+        "notjust": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "divein": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": false,
+          "measured": "0 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": false,
+          "measured": "0/0 bullets carry emoji (0%)"
+        },
+        "sentence-uniformity": {
+          "fired": false,
+          "measured": "stdev 9.14 words over 6 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\human\\soup-03.md",
+      "verdict": "clean",
+      "score": 0,
+      "hits": {
+        "delve": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": false,
+          "measured": "0 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": false,
+          "measured": "1.01 per 100 words (1 in 99 words)"
+        },
+        "triplet": {
+          "fired": false,
+          "measured": "0 triplet(s)"
+        },
+        "notjust": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "divein": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": false,
+          "measured": "0 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": false,
+          "measured": "0/0 bullets carry emoji (0%)"
+        },
+        "sentence-uniformity": {
+          "fired": false,
+          "measured": "stdev 7.49 words over 7 sentences"
+        }
+      }
+    },
+    {
+      "file": "examples/corpus\\human\\tap-01.md",
+      "verdict": "clean",
+      "score": 0,
+      "hits": {
+        "delve": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "conclusion": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "moreover-opener": {
+          "fired": false,
+          "measured": "0 paragraph(s) open with moreover/furthermore"
+        },
+        "emdash-density": {
+          "fired": false,
+          "measured": "1.02 per 100 words (1 in 98 words)"
+        },
+        "triplet": {
+          "fired": false,
+          "measured": "0 triplet(s)"
+        },
+        "notjust": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "divein": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "boldheaders": {
+          "fired": false,
+          "measured": "0 fully-bold line(s)"
+        },
+        "verb-cluster": {
+          "fired": false,
+          "measured": "0 occurrence(s)"
+        },
+        "emoji-bullets": {
+          "fired": false,
+          "measured": "0/0 bullets carry emoji (0%)"
+        },
+        "sentence-uniformity": {
+          "fired": false,
+          "measured": "stdev 8.94 words over 7 sentences"
+        }
+      }
+    }
+  ]
+}
